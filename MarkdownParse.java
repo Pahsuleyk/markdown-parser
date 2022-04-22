@@ -16,8 +16,25 @@ public class MarkdownParse {
             int closeBracket = markdown.indexOf("]", openBracket);
             int openParen = markdown.indexOf("(", closeBracket);
             int closeParen = markdown.indexOf(")", openParen);
+            
+            //fixed infinite loop due to no link in test-file3.md
+            if (openParen == -1 || closeParen == -1){
+                break;
+            }
+
+            //fixed infinite loop due to no title in test-file4.md
+            else if(openBracket == -1 || closeBracket == -1){
+                openParen = markdown.indexOf("(", currentIndex); 
+                closeParen = markdown.indexOf(")", currentIndex);
+            }
+            
             toReturn.add(markdown.substring(openParen + 1, closeParen));
             currentIndex = closeParen + 1;
+            
+            //fixed infinite loop due to extra line in test-file2.md
+            if (markdown.length()- 2 <= currentIndex){
+                break;
+        }
         }
 
         return toReturn;
