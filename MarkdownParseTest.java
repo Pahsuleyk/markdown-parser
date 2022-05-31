@@ -85,6 +85,8 @@ public class MarkdownParseTest {
         ArrayList<String> result = snippet1.getLinks(content);
         ArrayList<String> expected = new ArrayList<>();
         expected.add("'google.com");
+        expected.add("google.com");
+        expected.add("'ucsd.edu");
         assertEquals(expected, result);
     }
 
